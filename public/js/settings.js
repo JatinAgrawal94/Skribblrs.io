@@ -34,6 +34,7 @@ function updateSettings(e) {
         time: document.querySelector('#time').value,
         customWords: Array.from(new Set(document.querySelector('#customWords').value.split('\n').map((word) => word.trim()).filter((word) => word !== ''))),
         probability: document.querySelector('#probability').value,
+        language: document.querySelector('#language').value,
     });
 }
 
