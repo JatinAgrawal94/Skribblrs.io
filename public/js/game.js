@@ -133,6 +133,7 @@ socket.on('choosing', ({ name }) => {
 socket.on('settingsUpdate', (data) => {
     document.querySelector('#rounds').value = data.rounds;
     document.querySelector('#time').value = data.time;
+    document.querySelector('#language').value = data.language;
 });
 
 socket.on('hints', (data) => { hints = data; });
