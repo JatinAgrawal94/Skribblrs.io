@@ -47,11 +47,12 @@ function wait(roomID, drawer, ms) {
 }
 
 function get3Words(roomID) {
-    if (games[roomID].customWords.length < 3) return chance.pickset(words, 3);
-    const pickedWords = new Set();
     const { probability: p } = games[roomID];
+    const language = games[roomID].language.toLowerCase();
+    if (games[roomID].customWords.length < 3) return chance.pickset(words[language], 3);
+    const pickedWords = new Set();
     while (pickedWords.size !== 3) {
-        const wordSet = chance.weighted([words, games[roomID].customWords], [1 - p, p]);
+        const wordSet = chance.weighted([words[language], games[roomID].customWords], [1 - p, p]);
         pickedWords.add(chance.pickone(wordSet));
     }
     return Array.from(pickedWords);
