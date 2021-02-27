@@ -91,6 +91,7 @@ if (searchParams.has('id')) {
     document.querySelector('#rounds').setAttribute('disabled', true);
     document.querySelector('#time').setAttribute('disabled', true);
     document.querySelector('#startGame').setAttribute('disabled', true);
+    document.querySelector('#language').setAttribute('disabled', true);
     document.querySelector('#playGame').addEventListener('click', async () => {
         await animateCSS('#landing>div>div', 'hinge');
         document.querySelector('#landing').remove();
