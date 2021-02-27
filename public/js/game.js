@@ -81,7 +81,7 @@ function startTimer(ms) {
         if (secs === 0) clearInterval(id);
         if (secs === 10) clock.play();
         document.querySelector('#clock').textContent = secs;
-        if (hints[0] && wordP && secs === hints[0].displayTime) {
+        if (hints[0] && wordP && secs === hints[0].displayTime && pad.readOnly) {
             wordP.textContent = hints[0].hint;
             hint.play();
             animateCSS(wordP, 'tada', false);
