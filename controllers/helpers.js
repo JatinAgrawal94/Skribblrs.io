@@ -1,8 +1,10 @@
 /* global MAX_POINTS, round, games */
 const { readFileSync } = require('fs');
 const Chance = require('chance');
+const GraphemeSplitter = require('grapheme-splitter');
 
 const chance = new Chance();
+const splitter = new GraphemeSplitter();
 const words = JSON.parse(readFileSync('words.json').toString('utf-8'));
 
 function getScore(startTime, roundtime) {
@@ -23,16 +25,19 @@ function populateDisplayTime(hints, roomID) {
 }
 
 function getHints(word, roomID) {
-    const hints = [];
-    const hintsCount = Math.floor(0.7 * word.length);
-    let prevHint = word.split('').map((char) => (char !== ' ' ? '_' : ' ')).join('');
+    let hints = [];
+    const wordLength = splitter.countGraphemes(word);
+    const hintsCount = Math.floor(0.7 * wordLength);
+    const graphemes = splitter.splitGraphemes(word);
+    let prevHint = graphemes.map((char) => (char !== ' ' ? '_' : ' '));
     while (hints.length !== hintsCount) {
-        const pos = chance.integer({ min: 0, max: word.length - 1 });
+        const pos = chance.integer({ min: 0, max: wordLength - 1 });
         // eslint-disable-next-line no-continue
         if (prevHint[pos] !== '_') continue;
-        prevHint = `${prevHint.substring(0, pos)}${word[pos]}${prevHint.substring(pos + 1)}`;
+        prevHint = [...prevHint.slice(0, pos), graphemes[pos], ...prevHint.slice(pos + 1)];
         hints.push(prevHint);
     }
+    hints = hints.map((hint) => hint.join(''));
     return populateDisplayTime(hints, roomID);
 }
 
