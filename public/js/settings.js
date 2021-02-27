@@ -109,6 +109,7 @@ if (searchParams.has('id')) {
     document.querySelector('#time').addEventListener('input', updateSettings);
     document.querySelector('#customWords').addEventListener('change', updateSettings);
     document.querySelector('#probability').addEventListener('change', updateSettings);
+    document.querySelector('#language').addEventListener('change', updateSettings);
     document.querySelector('#createRoom').addEventListener('click', async () => {
         await animateCSS('#landing>div>div', 'hinge');
         document.querySelector('#landing').remove();
