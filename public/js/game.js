@@ -1,4 +1,4 @@
-/* global socket, pad, Howl, animateCSS */
+/* global socket, pad, Howl, animateCSS, language */
 let timerID = 0;
 let pickWordID = 0;
 let hints = [];
@@ -134,6 +134,14 @@ socket.on('settingsUpdate', (data) => {
     document.querySelector('#rounds').value = data.rounds;
     document.querySelector('#time').value = data.time;
     document.querySelector('#language').value = data.language;
+    // eslint-disable-next-line no-global-assign
+    language = data.language;
+    if (language === 'English') return;
+    if (document.querySelector('#transliterate')) return;
+    const script = document.createElement('script');
+    script.id = 'transliterate';
+    script.src = 'js/transliterate.js';
+    document.body.append(script);
 });
 
 socket.on('hints', (data) => { hints = data; });

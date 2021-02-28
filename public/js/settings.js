@@ -145,7 +145,9 @@ document.querySelector('#language').addEventListener('input', function () {
     // eslint-disable-next-line no-unused-vars
     language = this.value;
     if (language === 'English') return;
+    if (document.querySelector('#transliterate')) return;
     const script = document.createElement('script');
+    script.id = 'transliterate';
     script.src = 'js/transliterate.js';
     document.body.append(script);
 });
